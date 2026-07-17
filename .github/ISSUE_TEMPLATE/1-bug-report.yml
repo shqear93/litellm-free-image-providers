@@ -1,0 +1,42 @@
+name: Bug Report
+description: Report something that isn't working as expected
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Which provider?
+      options:
+        - Pollinations.ai
+        - AI Horde
+        - Both / registration
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      render: shell
+
+  - type: input
+    id: package-version
+    attributes:
+      label: litellm-free-image-providers version
+    validations:
+      required: true
+
+  - type: input
+    id: litellm-version
+    attributes:
+      label: litellm version
+    validations:
+      required: true

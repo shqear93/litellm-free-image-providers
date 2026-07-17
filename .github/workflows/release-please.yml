@@ -1,0 +1,30 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+    steps:
+      - name: Run Release Please
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          release-type: python
+          # A PAT, not the default GITHUB_TOKEN: releases/pushes made with
+          # the default token don't trigger other workflows (GitHub's
+          # anti-recursion safeguard), which would silently prevent the
+          # publish workflow below from ever firing. Falls back to
+          # GITHUB_TOKEN if the secret isn't set yet, so this doesn't break
+          # before RELEASE_PLEASE_TOKEN is configured.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
